@@ -26,14 +26,37 @@
 
 <body>
 
+    <!-- Navigation Bar -->
+        <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">Bike and Automobile Collisions Toronto</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Link Home Page -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                </li>
+                <!-- Link to Bike Lanes Map -->
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.toronto.ca/services-payments/streets-parking-transportation/cycling-in-toronto/cycling-network-map/" target="_blank">Bike Lanes Toronto</a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+
+
     <!-- MAP CONTAINER -->
-    <div id='map' class='map'></div>
+        <div id='map' class='map'></div>
 
 
-    <!-- ELEMENTS
-    <div class='map-overlay'>
-        <button type="button" class="btn btn-primary btn-sm" id="buffbutton">Buffer</button>
-    </div> -->
+    <!-- ELEMENTS -->
+        <div class='map-overlay'>
+            <button type="button" class="btn btn-primary btn-sm" id="retbutton">Return Button</button>
+        </div>
 
 
     <script src="script.js"></script>

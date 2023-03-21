@@ -8,3 +8,27 @@
     width: 100%;
     z-index: 0;
 }
+
+/* Overlay Search Formatting */
+.map-overlay-search {
+    position: absolute;
+    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    top: 10%;
+    left: 2%;
+    margin: 10px 0 0 10px; /*top margin, right margin, bottom margin, left margin*/
+    padding: 10px; /*around elements inside of overlay*/
+    overflow: visible;
+}
+
+/* Geocoder Formatting */
+.geocoder {
+    position: relative;
+    margin: 10px 0 10px;
+}
+
+/* Return Button Formatting */
+.retbutton {
+    position: relative;
+    margin: 10px 0 10px;
+}

@@ -13,8 +13,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZ3NhbXVlbC11b2Z0IiwiYSI6ImNsY3lieDA3MjJjNnAzc
 const map = new mapboxgl.Map({
     container: 'map', // div container ID for map
     style: 'mapbox://styles/gsamuel-uoft/cle4l4pr5001t01ljheblcl08', // Link to mapbox style URL
-    center: [-79.39, 43.67], // starting position [longitude, latitude]
-    zoom: 10, // starting zoom
+    center: [-79.39, 43.70], // starting position [longitude, latitude]
+    zoom: 10.5, // starting zoom
 });
 
 /*--------------------------------------------------------------------
@@ -119,13 +119,15 @@ TESTING POINT, BBOX AND HEXGRID LAYER VISUALIZATION
 Step 4: AGGREGATE COLLISIONS BY HEXGRID
 --------------------------------------------------------------------*/
 
-// NEEDS TO BE CONTINUED CODE INCOMPLETE AND NOT FUNCTIONAL 
+//Building HexGrid with Collision Counts 
+//Method: Collecting unique IDs of each crash and aggregating to corresponding polygon on the hexgrid
 let collisionhex = turf.collect(hexgeojson, collisgeojson, '_id', 'values')
 console.log(collisionhex)
 
-//Maximum Number of Crashs per Hexagon
+//Maximum Number of Crashs per Hexagon -- Identified using the console.log display, when max collisions is at 67 there is one feature still displayed -- thus, max is 68 in on hexgrid
 let maxcollisions = 68;
 
+//Counting the number of unique IDs from the collisions data aggregated into each hexgrid
 collisionhex.features.forEach((feature) => {
     feature.properties.COUNT = feature.properties.values.length
     if (feature.properties.COUNT > maxcollisions) {
@@ -149,7 +151,7 @@ map.addLayer({
         'fill-color': [
             'step',
             ['get','COUNT'],
-            '#2cba00',
+            '#59b03f', // Step counts from Green Signalling low number of counts and good to Red signalling high crash numbers
             5, '#a3ff00',
             10, '#fff400',
             25, '#ffa700',
@@ -161,11 +163,41 @@ map.addLayer({
 });
 });
 
+// /*--------------------------------------------------------------------
+// ADDING MAP CONTROLS
+// --------------------------------------------------------------------*/
+
+//Adding Navigation Controls -- Zoom and Spin
+map.addControl(new mapboxgl.NavigationControl());
+
+//Adding Fullscreen Capacity 
+map.addControl(new mapboxgl.FullscreenControl());
+
+//Adding Geocoding Capacity -- People Can Search their Address
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    countries: "ca" 
+});
+
+//Positioning Geocoder on Page
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+//Setting up Return Button -- Return Zoom to Original Extent
+document.getElementById('returnbutton').addEventListener('click', () => {
+    map.flyTo({
+        center: [-79.39, 43.70], //Coordinates Centering Page
+        zoom: 10.5,
+        essential: true
+    });
+});
 
 
 // /*--------------------------------------------------------------------
-// Step 5: FINALIZE YOUR WEB MAP
+// ADDING POP-UPS
 // --------------------------------------------------------------------*/
+
+
 //HINT: Think about the display of your data and usability of your web map.
 //      Update the addlayer paint properties for your hexgrid using:
 //        - an expression
