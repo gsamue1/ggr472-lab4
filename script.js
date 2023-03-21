@@ -155,7 +155,6 @@ map.addLayer({
             1, '#83cd6d',
             5, '#fff400',
             10, '#fbb430',
-            20, '#ea7601',
             30, '#ff0000',
         ],
         'fill-opacity': 0.5,
