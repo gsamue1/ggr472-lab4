@@ -163,19 +163,18 @@ map.addLayer({
 });
 
 //MAPPING BIKE LANES - Add datasource directly from raw link
-map.addSource('bike-lanes', {
+map.addSource('bikelanes', {
     type: 'geojson',
-    data: "https://raw.githubusercontent.com/gsamue1/ggr472-lab4/main/Bike%20Lanes%20Toronto.geojson"
+    data: 'https://raw.githubusercontent.com/gsamue1/ggr472-lab4/main/Bike%20Lanes%20Toronto.geojson'
 });
 
 //MAPPING MAPPING AGGREGATED HEXGRID - Set style for when new points are added to the data source
 map.addLayer({
-    'id': 'bike-lanes-to',
+    'id': 'bikelanesto',
     'type': 'line',
-    'source': 'bike-lanes',
+    'source': 'bikelanes',
     'paint': {
-        'line-color': 'blue'
-
+        'line-color': 'blue',
     },
 });
 });
@@ -209,6 +208,14 @@ document.getElementById('returnbutton').addEventListener('click', () => {
     });
 });
 
+//Filtering for Bike Lanes
+document.getElementById('bikecheck').addEventListener('change', (e) => {
+    map.setLayoutProperty( // change the visiblity of the layer of data
+        'bikelanesto',
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+    )
+});
 
 // /*--------------------------------------------------------------------
 // CONFIGURING POP-UPS
@@ -234,41 +241,3 @@ document.getElementById('returnbutton').addEventListener('click', () => {
             map.on('mouseleave', 'states-layer', () => {
             map.getCanvas().style.cursor = '';
             });
-
-
-        // const popup_collisions_hex = new mapboxgl.Popup({
-        //     closeButton: false,
-        //     closeOnClick: false
-        //     });
-        
-        //     map.on('click', 'hexcollisions', (e) => {
-        // // Change the cursor style as a UI indicator.
-        // map.getCanvas().style.cursor = 'pointer';
-        
-        // // Copying Coordinates array
-        // const coordinates = e.features[0].geometry.coordinates.slice();
-        // const description = e.features[0].properties.COUNT;
-        
-        // // Ensure that if the map is zoomed out such that multiple
-        // // copies of the feature are visible, the popup appears
-        // // over the copy being pointed to.
-        // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        // }
-        
-        // // Populate the popup and set its coordinates
-        // // based on the feature found.
-        // popup_idr.setLngLat(coordinates).setHTML(description).addTo(map);
-        // });
-        
-        // map.on('mouseleave', 'hexcollisions', () => {
-        // map.getCanvas().style.cursor = '';
-        // popup_idr.remove();
-        // });
-
-//HINT: Think about the display of your data and usability of your web map.
-//      Update the addlayer paint properties for your hexgrid using:
-//        - an expression
-//        - The COUNT attribute
-//        - The maximum number of collisions found in a hexagon
-//      Add a legend and additional functionality including pop-up windows

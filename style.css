@@ -19,7 +19,7 @@
     position: absolute;
     font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     background: rgba(255, 255, 255, 0.8);
-    top: 10%;
+    top: 8%;
     left: 2%;
     margin: 10px 0 0 10px; /*top margin, right margin, bottom margin, left margin*/
     padding: 10px; /*around elements inside of overlay*/
@@ -28,8 +28,22 @@
 
 /* Geocoder Formatting */
 .geocoder {
-    position: relative;
-    margin: 10px 0 10px;
+  position: relative;
+  margin: 10px 0 10px;
+}
+
+/* Filter Overlay */
+.filter-box {
+  position: absolute;
+  font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+  width: 260px;
+  top: 25%;
+  left: 2%;
+  margin: 10px 0 0 10px;
+  padding: 10px;
+  overflow: visible;
+  z-index: 1;
 }
 
 /* Legend Formatting  */
@@ -93,4 +107,3 @@
 .my-legend a {
   color: #777;
   }
-
