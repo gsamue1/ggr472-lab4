@@ -161,6 +161,23 @@ map.addLayer({
         'fill-outline-color': 'white'
     },
 });
+
+//MAPPING BIKE LANES - Add datasource directly from raw link
+map.addSource('bike-lanes', {
+    type: 'geojson',
+    data: "https://raw.githubusercontent.com/gsamue1/ggr472-lab4/main/Bike%20Lanes%20Toronto.geojson"
+});
+
+//MAPPING MAPPING AGGREGATED HEXGRID - Set style for when new points are added to the data source
+map.addLayer({
+    'id': 'bike-lanes-to',
+    'type': 'line',
+    'source': 'bike-lanes',
+    'paint': {
+        'line-color': 'blue'
+
+    },
+});
 });
 
 // /*--------------------------------------------------------------------
