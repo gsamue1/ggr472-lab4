@@ -49,8 +49,8 @@ map.on('load', () => {
     }
 
 //Finding Coordinates for Bounding Box Vertices
-    console.log(bboxscaled)
-    console.log(bboxscaled.geometry.coordinates)
+    // console.log(bboxscaled)
+    // console.log(bboxscaled.geometry.coordinates)
 
 //Creating Hexgrid
 let bboxcoords =  [bboxscaled.geometry.coordinates[0][0][0],
@@ -59,40 +59,43 @@ let bboxcoords =  [bboxscaled.geometry.coordinates[0][0][0],
                    bboxscaled.geometry.coordinates[0][2][1],];
 let hexgeojson = turf.hexGrid(bboxcoords, 0.5, {units: 'kilometers'});
 
-//MAPPINF COLLISION POINTS - Add datasource using GeoJSON variable
-    map.addSource('collisions', {
-        type: 'geojson',
-        data: collisgeojson
-    });
+/*--------------------------------------------------------------------
+TESTING POINT, BBOX AND HEXGRID LAYER VISUALIZATION 
+--------------------------------------------------------------------*/
+// //MAPPING COLLISION POINTS - Add datasource using GeoJSON variable
+//     map.addSource('collisions', {
+//         type: 'geojson',
+//         data: collisgeojson
+//     });
 
-//MAPPING COLLISION POINTS - Set style for when new points are added to the data source
-    map.addLayer({
-        'id': 'collisions-points',
-        'type': 'circle',
-        'source': 'collisions',
-        'paint': {
-            'circle-radius': 5,
-            'circle-color': 'blue'
-        }
-    });
+// //MAPPING COLLISION POINTS - Set style for when new points are added to the data source
+//     map.addLayer({
+//         'id': 'collisions-points',
+//         'type': 'circle',
+//         'source': 'collisions',
+//         'paint': {
+//             'circle-radius': 5,
+//             'circle-color': 'blue'
+//         }
+//     });
 
-//MAPPING BOUNDING BOX - Add datasource using GeoJSON variable
-    map.addSource('bbox-collisions', {
-        type: 'geojson',
-        data: bboxgeojson
-    });
+// //MAPPING BOUNDING BOX - Add datasource using GeoJSON variable
+//     map.addSource('bbox-collisions', {
+//         type: 'geojson',
+//         data: bboxgeojson
+//     });
 
-//MAPPING BOUNDING BBOX - Set style for when new points are added to the data source
-    map.addLayer({
-        'id': 'collisions-bbox-polygon',
-        'type': 'fill',
-        'source': 'bbox-collisions',
-        'paint': {
-            'fill-color': 'green',
-            'fill-opacity': 0.3,
-            'fill-outline-color': 'green'
-        },
-    });
+// //MAPPING BOUNDING BBOX - Set style for when new points are added to the data source
+//     map.addLayer({
+//         'id': 'collisions-bbox-polygon',
+//         'type': 'fill',
+//         'source': 'bbox-collisions',
+//         'paint': {
+//             'fill-color': 'green',
+//             'fill-opacity': 0.3,
+//             'fill-outline-color': 'green'
+//         },
+//     });
 
 // //MAPPING HEXGRID - Add datasource using GeoJSON variable
 //       map.addSource('hexgrid-to', {
@@ -110,6 +113,7 @@ let hexgeojson = turf.hexGrid(bboxcoords, 0.5, {units: 'kilometers'});
 //             'fill-outline-color': 'blue'
 //         }
 //     });
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
 /*--------------------------------------------------------------------
 Step 4: AGGREGATE COLLISIONS BY HEXGRID
@@ -117,9 +121,18 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
 
 // NEEDS TO BE CONTINUED CODE INCOMPLETE AND NOT FUNCTIONAL 
 let collisionhex = turf.collect(hexgeojson, collisgeojson, '_id', 'values')
-//HINT: Use Turf collect function to collect all '_id' properties from the collision points data for each heaxagon
-//      View the collect output in the console. Where there are no intersecting points in polygons, arrays will be empty
+console.log(collisionhex)
 
+//Maximum Number of Crashs per Hexagon
+let maxcollisions = 68;
+
+collisionhex.features.forEach((feature) => {
+    feature.properties.COUNT = feature.properties.values.length
+    if (feature.properties.COUNT > maxcollisions) {
+        console.log(feature);
+        maxcollisions=feature.properties.COUNT
+    }
+});
 
 //MAPPING AGREGGATED HEXGRID - Add datasource using GeoJSON variable
 map.addSource('hexgrid-collisions', {
@@ -133,8 +146,15 @@ map.addLayer({
     'type': 'fill',
     'source': 'hexgrid-collisions',
     'paint': {
-        'fill-opacity': 0.5,
-        'fill-outline-color': 'blue'
+        'fill-colour': [
+            'step',
+            ['get','COUNT'],
+            '#888826',
+            10, '#bd8826',
+            25, ''
+        ],
+        'fill-opacity': 0.5, 
+        'fill-outline-colour': "white"
     }
 });
 });
