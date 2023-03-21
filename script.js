@@ -152,35 +152,16 @@ map.addLayer({
             'step',
             ['get','COUNT'],
             '#d3d3d3', // Step counts from Green Signalling low number of counts and good to Red signalling high crash numbers
-            1, '#83cd6c',
-            5, '#fff600',
-            10, '#FFCF07',
-            20, '#FE8116',
+            1, '#83cd6d',
+            5, '#fff400',
+            10, '#fbb430',
+            20, '#ea7601',
             30, '#ff0000',
         ],
         'fill-opacity': 0.5,
         'fill-outline-color': 'white'
     },
 });
-// map.addLayer({
-//     'id': 'hexcollisions',
-//     'type': 'fill',
-//     'source': 'hexgrid-collisions',
-//     'paint': {
-//         'fill-color': [
-//             'step',
-//             ['get','COUNT'],
-//             '#d3d3d3', // Step counts from Green Signalling low number of counts and good to Red signalling high crash numbers
-//             1, '#83cd6d',
-//             5, '#83cd6d',
-//             10, '#fff400',
-//             20, '#ffa700',
-//             30, '#ff0000',
-//         ],
-//         'fill-opacity': 0.5,
-//         'fill-outline-color': 'white'
-//     },
-// });
 });
 
 // /*--------------------------------------------------------------------
