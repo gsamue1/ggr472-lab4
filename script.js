@@ -151,16 +151,36 @@ map.addLayer({
         'fill-color': [
             'step',
             ['get','COUNT'],
-            '#59b03f', // Step counts from Green Signalling low number of counts and good to Red signalling high crash numbers
-            5, '#a3ff00',
-            10, '#fff400',
-            25, '#ffa700',
+            '#d3d3d3', // Step counts from Green Signalling low number of counts and good to Red signalling high crash numbers
+            1, '#83cd6c',
+            5, '#fff600',
+            10, '#FFCF07',
+            20, '#FE8116',
             30, '#ff0000',
         ],
         'fill-opacity': 0.5,
         'fill-outline-color': 'white'
     },
 });
+// map.addLayer({
+//     'id': 'hexcollisions',
+//     'type': 'fill',
+//     'source': 'hexgrid-collisions',
+//     'paint': {
+//         'fill-color': [
+//             'step',
+//             ['get','COUNT'],
+//             '#d3d3d3', // Step counts from Green Signalling low number of counts and good to Red signalling high crash numbers
+//             1, '#83cd6d',
+//             5, '#83cd6d',
+//             10, '#fff400',
+//             20, '#ffa700',
+//             30, '#ff0000',
+//         ],
+//         'fill-opacity': 0.5,
+//         'fill-outline-color': 'white'
+//     },
+// });
 });
 
 // /*--------------------------------------------------------------------
@@ -198,36 +218,56 @@ document.getElementById('returnbutton').addEventListener('click', () => {
 // --------------------------------------------------------------------*/
 // Code Sourced: Mapbox https://docs.mapbox.com/mapbox-gl-js/example/popup-on-hover/ 
     //HEXGRIDS
-    //Creating Pop-Up Variable 
-    const popup_collisions_hex = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false
-        });
+    //Creating Pop-Up Variable     
+        map.on('click', 'hexcollisions', (e) => {
+            new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML("<strong>Number of Collisions</strong>" +  "<br>" + e.features[0].properties.COUNT)
+            .addTo(map);
+            });
+             
+            // Change the cursor to a pointer when
+            // the mouse is over the states layer.
+            map.on('mouseenter', 'states-layer', () => {
+            map.getCanvas().style.cursor = 'pointer';
+            });
+             
+            // Change the cursor back to a pointer
+            // when it leaves the states layer.
+            map.on('mouseleave', 'states-layer', () => {
+            map.getCanvas().style.cursor = '';
+            });
+
+
+        // const popup_collisions_hex = new mapboxgl.Popup({
+        //     closeButton: false,
+        //     closeOnClick: false
+        //     });
         
-        map.on('mouseenter', 'hexcollisions', (e) => {
-        // Change the cursor style as a UI indicator.
-        map.getCanvas().style.cursor = 'pointer';
+        //     map.on('click', 'hexcollisions', (e) => {
+        // // Change the cursor style as a UI indicator.
+        // map.getCanvas().style.cursor = 'pointer';
         
-        // Copying Coordinates array
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const description = e.features[0].properties.COUNT;
+        // // Copying Coordinates array
+        // const coordinates = e.features[0].geometry.coordinates.slice();
+        // const description = e.features[0].properties.COUNT;
         
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
+        // // Ensure that if the map is zoomed out such that multiple
+        // // copies of the feature are visible, the popup appears
+        // // over the copy being pointed to.
+        // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        // coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        // }
         
-        // Populate the popup and set its coordinates
-        // based on the feature found.
-        popup_idr.setLngLat(coordinates).setHTML(description).addTo(map);
-        });
+        // // Populate the popup and set its coordinates
+        // // based on the feature found.
+        // popup_idr.setLngLat(coordinates).setHTML(description).addTo(map);
+        // });
         
-        map.on('mouseleave', 'hexcollisions', () => {
-        map.getCanvas().style.cursor = '';
-        popup_idr.remove();
-        });
+        // map.on('mouseleave', 'hexcollisions', () => {
+        // map.getCanvas().style.cursor = '';
+        // popup_idr.remove();
+        // });
 
 //HINT: Think about the display of your data and usability of your web map.
 //      Update the addlayer paint properties for your hexgrid using:

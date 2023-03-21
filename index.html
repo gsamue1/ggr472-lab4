@@ -54,21 +54,29 @@
 
 
     <!-- ELEMENTS -->
-        <div class='map-overlay'>
-            <button type="button" class="btn btn-primary btn-sm" id="retbutton">Return Button</button>
-        </div>
+    <div class='map-overlay-search'>
+        <label>Plug in your Address to see your Neighbourhood!</label>
+        <div id="geocoder" class="geocoder"></div>
+        <button type="button" class="btn btn-primary btn-sm" id="returnbutton">Return to Original View</button>
+    </div>
 
     <!-- LEGEND -->
         <div class='my-legend'>
-            <div class='legend-title'>Automobile-Bike/Pedestrian Collision Toronto With Casualty</div>
+            <div class='legend-title'>Automobile-Bike/Pedestrian Collision Toronto With Casualty <br> 2006-2021 </div>
             <div class='legend-scale'>
             <ul class='legend-labels'>
                 <!-- FIX LEGEND TO MATCH DESCRIPTIONS -->
-                <li><span style='background:#627BC1;'></span>No Collisions</li> 
-                <li><span style='background:#f35c4b;'></span>1-4 Collisions</li>
-                <li><span style='background:#e0890f;'></span>5-9 Collisions</li>
-                <li><span style='background:#eded4f;'></span>10-20 Collisions</li>
-                <li><span style='background:#918e8d;'></span>25-Collisions</li>
+                <li><span style='background:#d3d3d3;'></span>No Collisions</li>  
+                <li><span style='background:#83cd6c;'></span>1-5 Collisions</li>
+                <li><span style='background:#fff400;'></span>6-10 Collisions</li>
+                <li><span style='background:#ffa700;'></span>11-20 Collisions</li>
+                <li><span style='background:#ff0000;'></span>20+ Collisions</li>
+
+
+            5, '#fff600',
+            11, '#FFCF07',
+            20, '#FE8116',
+            30, '#ff0000',
             </ul>
             </div>
             <div class='legend-source'>Source: <a href="https://open.toronto.ca/dataset/motor-vehicle-collisions-involving-killed-or-seriously-injured-persons/">City of Toronto Open Data</a></div>
