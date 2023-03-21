@@ -146,16 +146,18 @@ map.addLayer({
     'type': 'fill',
     'source': 'hexgrid-collisions',
     'paint': {
-        'fill-colour': [
+        'fill-color': [
             'step',
             ['get','COUNT'],
-            '#888826',
-            10, '#bd8826',
-            25, ''
+            '#2cba00',
+            5, '#a3ff00',
+            10, '#fff400',
+            25, '#ffa700',
+            30, '#ff0000',
         ],
-        'fill-opacity': 0.5, 
-        'fill-outline-colour': "white"
-    }
+        'fill-opacity': 0.5,
+        'fill-outline-color': 'white'
+    },
 });
 });
 
